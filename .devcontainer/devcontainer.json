@@ -12,7 +12,8 @@
     }
   },
   "postCreateCommand": [
-    "sudo apt-get update && sudo apt-get install -y docker.io",
+    "sudo apt-get update",
+    "sudo apt-get install -y docker.io",
     "docker pull toroio/martini-runtime",
     "export MR_LICENSE=$(cat /workspaces/mr_license.txt)",
     "docker run -d -e MR_LICENSE=${MR_LICENSE} toroio/martini-runtime"
