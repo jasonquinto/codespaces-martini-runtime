@@ -1,15 +1,14 @@
 {
-  "name": "Martini Runtime",
-  "image": "toroio/martini-runtime",
+  "name": "Docker Development Environment",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  "postCreateCommand": "docker pull toroio/martini-runtime",
   "customizations": {
     "vscode": {
-      "extensions": [
-        "ms-azuretools.vscode-docker", 
-        "ms-vscode-remote.remote-containers"
-      ]
+      "settings": {},
+      "extensions": []
     }
   },
-  "postCreateCommand": "echo 'Martini runtime container ready!'",
-  "forwardPorts": [8080],
-  "remoteUser": "root"
+  "forwardPorts": [8080]
 }
