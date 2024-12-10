@@ -1,24 +1,24 @@
 {
   "name": "Martini Runtime Environment",
-  "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
-  "features": {
-    "docker-in-docker": "latest"
-  },
+  "image": "toroio/martini-runtime",
   "customizations": {
     "vscode": {
       "settings": {
         "terminal.integrated.defaultProfile.linux": "bash"
-      }
+      },
+      "extensions": [
+        "ms-azuretools.vscode-docker",
+        "github.copilot"
+      ]
     }
   },
-  "postCreateCommand": [
-    "sudo apt-get update",
-    "sudo apt-get install -y docker.io",
-    "docker pull toroio/martini-runtime",
-    "export MR_LICENSE=$(cat /workspaces/.devcontainer/mr_license.txt)",
-    "docker run -d -e MR_LICENSE=$(cat /workspaces/.devcontainer/mr_license.txt) toroio/martini-runtime"
-  ],
-  "mounts": [
-    "source=.devcontainer/mr_license.txt,target=/workspaces/.devcontainer/mr_license.txt,type=bind"
-  ]
+  "features": {
+    "docker-in-docker": {
+      "version": "latest"
+    }
+  },
+  "remoteEnv": {
+    "MR_LICENSE": "${{ secrets.MR_LICENSE }}"
+  },
+  "postCreateCommand": "docker run -e MR_LICENSE=${MR_LICENSE} toroio/martini-runtime:latest"
 }
